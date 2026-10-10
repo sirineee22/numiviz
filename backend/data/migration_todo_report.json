@@ -1,0 +1,7 @@
+[
+  {
+    "source": "numiviz.db:exercice",
+    "count": 24,
+    "reason": "Legacy French exam text questions without formal numerical parameters. Kept in DB for historical lesson views; structured practice bank uses standardized schema."
+  }
+]
