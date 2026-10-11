@@ -1,4 +1,4 @@
-﻿import { useLabInitialParams } from '@/lib/labParams';
+import { useLabInitialParams } from '@/lib/labParams';
 /**
  * NonlinearEquationsTool
  * Replaces EquationsNonLineairesInteractiveGraph with a full iterative solver experience.
@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import IterativeSolverPanel, { SolverResult } from './IterativeSolverPanel';
 import CompareMethodsPanel from './CompareMethodsPanel';
+import { MathInputWithToolbar } from './MathToolbar';
 import { API_BASE } from '@/lib/api';
 
 interface FormState {
@@ -91,16 +92,14 @@ export default function NonlinearEquationsTool({ defaultMethod = 'newton' }: { d
     <div className="space-y-6">
       {/* ── Parameter inputs ───────────────────────────────── */}
       <div className="rounded-xl border border-border bg-muted/20 p-4 space-y-4">
-        <h3 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">
-          Problem Setup
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="space-y-1">
-            <Label>f(x) &mdash; find root of f(x)=0</Label>
-            <Input className={inputClass} value={form.fx} onChange={set('fx')}
-              placeholder="e.g. x**3 - 2*x - 5" />
-            <p className="text-xs text-muted-foreground">Use ** for power, * for multiply</p>
-          </div>
+        <MathInputWithToolbar
+          label="f(x) — Équation f(x) = 0"
+          value={form.fx}
+          onChange={(val) => setForm((prev) => ({ ...prev, fx: val }))}
+          placeholder="ex: x^3 - 2*x - 5"
+        />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
           <div className="space-y-1">
             <Label>x₀ — initial guess (or left bound a)</Label>
             <Input className={inputClass} type="number" value={form.x0} onChange={set('x0')} />

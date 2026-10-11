@@ -1,4 +1,4 @@
-﻿import { useLabInitialParams } from '@/lib/labParams';
+import { useLabInitialParams } from '@/lib/labParams';
 /**
  * ODESolverTool — Euler & RK4
  * Solves dy/dx = f(x,y), compares with exact solution if provided.
@@ -13,6 +13,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
 import { API_BASE } from '@/lib/api';
+import { MathInputWithToolbar } from './MathToolbar';
 
 interface ODEPoint {
   x: number;
@@ -117,17 +118,18 @@ export default function ODESolverTool({ focusMethod }: { focusMethod?: string })
     <div className="space-y-6">
       {/* Inputs */}
       <div className="rounded-xl border border-border bg-muted/20 p-4 space-y-4">
-        <h3 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">
-          dy/dx = f(x, y)
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          <div className="space-y-1 col-span-2 sm:col-span-1">
-            <Label>f(x, y)</Label>
-            <Input className="font-mono" value={fxy} onChange={(e) => setFxy(e.target.value)} placeholder="x + y" />
-            <p className="text-xs text-muted-foreground">Use x and y as variables</p>
-          </div>
+        <MathInputWithToolbar
+          label="dy/dx = f(x, y) — Équation Différentielle Ordinaire"
+          value={fxy}
+          onChange={setFxy}
+          placeholder="ex: x + y, -2*x*y, sin(x) - y"
+          prefix="f(x, y) ="
+          helperText="Utilisez x et y comme variables. Cliquez sur un symbole pour insérer une puissance ou fonction."
+        />
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 pt-1">
           <div className="space-y-1">
-            <Label>x₀</Label>
+            <Label>x₀ (Départ)</Label>
             <Input className="font-mono" type="number" value={x0} onChange={(e) => setX0(e.target.value)} />
           </div>
           <div className="space-y-1">
@@ -135,16 +137,16 @@ export default function ODESolverTool({ focusMethod }: { focusMethod?: string })
             <Input className="font-mono" type="number" value={y0} onChange={(e) => setY0(e.target.value)} />
           </div>
           <div className="space-y-1">
-            <Label>x end</Label>
+            <Label>x fin</Label>
             <Input className="font-mono" type="number" value={xEnd} onChange={(e) => setXEnd(e.target.value)} />
           </div>
           <div className="space-y-1">
-            <Label>Step size h</Label>
+            <Label>Pas h</Label>
             <Input className="font-mono" type="number" value={h} onChange={(e) => setH(e.target.value)} />
           </div>
-          <div className="space-y-1 col-span-2 sm:col-span-2">
-            <Label>Exact y(x) (optional)</Label>
-            <Input className="font-mono" value={exact} onChange={(e) => setExact(e.target.value)} placeholder="e.g. 2*exp(x) - x - 1" />
+          <div className="space-y-1 col-span-2 sm:col-span-1">
+            <Label>Solution exacte (opt.)</Label>
+            <Input className="font-mono" value={exact} onChange={(e) => setExact(e.target.value)} placeholder="ex: 2*exp(x) - x - 1" />
           </div>
         </div>
         <Button onClick={runAll} disabled={loading} className="gap-1.5">

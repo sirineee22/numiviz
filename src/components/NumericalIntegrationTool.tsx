@@ -1,4 +1,4 @@
-﻿import { useLabInitialParams } from '@/lib/labParams';
+import { useLabInitialParams } from '@/lib/labParams';
 /**
  * NumericalIntegrationTool
  * Trapezoidal · Simpson 1/3 · Simpson 3/8
@@ -14,6 +14,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine,
 } from 'recharts';
 import { API_BASE } from '@/lib/api';
+import { MathInputWithToolbar } from './MathToolbar';
 
 interface IntegResult {
   method: string;
@@ -102,30 +103,31 @@ export default function NumericalIntegrationTool({ defaultMethod = 'trapezoidal'
     <div className="space-y-6">
       {/* Inputs */}
       <div className="rounded-xl border border-border bg-muted/20 p-4 space-y-4">
-        <h3 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">
-          ∫ f(x) dx from a to b
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          <div className="space-y-1 col-span-2 sm:col-span-1">
-            <Label>f(x)</Label>
-            <Input className="font-mono" value={fx} onChange={(e) => setFx(e.target.value)} placeholder="x**2" />
-          </div>
+        <MathInputWithToolbar
+          label="f(x) — Fonction à intégrer"
+          value={fx}
+          onChange={setFx}
+          placeholder="ex: x^2, sin(x), exp(-x^2)"
+          prefix="f(x) ="
+        />
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-1">
           <div className="space-y-1">
-            <Label>a (lower)</Label>
+            <Label>a (Borne inf.)</Label>
             <Input className="font-mono" type="number" value={a} onChange={(e) => setA(e.target.value)} />
           </div>
           <div className="space-y-1">
-            <Label>b (upper)</Label>
+            <Label>b (Borne sup.)</Label>
             <Input className="font-mono" type="number" value={b} onChange={(e) => setB(e.target.value)} />
           </div>
           <div className="space-y-1">
-            <Label>n (subintervals)</Label>
+            <Label>n (Sous-intervalles)</Label>
             <Input className="font-mono" type="number" value={n} onChange={(e) => setN(e.target.value)} />
-            <p className="text-xs text-muted-foreground">Even for S1/3, mult 3 for S3/8</p>
+            <p className="text-xs text-muted-foreground">Pair pour S1/3, mult 3 pour S3/8</p>
           </div>
           <div className="space-y-1">
-            <Label>Exact value (optional)</Label>
-            <Input className="font-mono" type="number" value={exact} onChange={(e) => setExact(e.target.value)} placeholder="for error" />
+            <Label>Valeur exacte (optionnelle)</Label>
+            <Input className="font-mono" type="number" value={exact} onChange={(e) => setExact(e.target.value)} placeholder="pour calcul d'erreur" />
           </div>
         </div>
         <Button onClick={runAll} disabled={loading} className="gap-1.5">

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * NumericalDiffTool
  * Forward · Backward · Central difference + error-vs-h analysis + Richardson Extrapolation
  */
@@ -12,6 +12,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
 import { API_BASE } from '@/lib/api';
+import { MathInputWithToolbar } from './MathToolbar';
 
 interface DiffResult {
   method: string;
@@ -126,28 +127,29 @@ export default function NumericalDiffTool({ defaultTab = "finite" }: { defaultTa
         <TabsContent value="finite" className="mt-4 space-y-6">
       {/* Inputs */}
       <div className="rounded-xl border border-border bg-muted/20 p-4 space-y-4">
-        <h3 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">
-          Approximate f′(x₀)
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          <div className="space-y-1 col-span-2 sm:col-span-1">
-            <Label>f(x)</Label>
-            <Input className="font-mono" value={fx} onChange={(e) => setFx(e.target.value)} placeholder="sin(x)" />
-          </div>
+        <MathInputWithToolbar
+          label="f(x) — Fonction à dériver"
+          value={fx}
+          onChange={setFx}
+          placeholder="ex: sin(x), x^3 - 2*x, exp(-x)"
+          prefix="f(x) ="
+        />
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
           <div className="space-y-1">
-            <Label>x₀</Label>
+            <Label>x₀ (Point d'évaluation)</Label>
             <Input className="font-mono" type="number" value={x0} onChange={(e) => setX0(e.target.value)} />
           </div>
           <div className="space-y-1">
-            <Label>Step size h</Label>
+            <Label>Pas h (Taille du pas)</Label>
             <Input className="font-mono" type="number" value={h} onChange={(e) => setH(e.target.value)} />
           </div>
           <div className="space-y-1">
-            <Label>Exact f′(x₀) (optional)</Label>
+            <Label>f′(x₀) exacte (optionnelle)</Label>
             <Input
               className="font-mono" type="number" value={exactDeriv}
               onChange={(e) => setExactDeriv(e.target.value)}
-              placeholder="for error analysis"
+              placeholder="pour calcul d'erreur"
             />
           </div>
         </div>
