@@ -30,7 +30,8 @@ async def upload_document(
 
     # Generate a unique filename to prevent overwrites
     file_extension = os.path.splitext(file.filename)[1]
-    unique_filename = f"{datetime.now().strftime("%Y%m%d%H%M%S")}_{file.filename}"
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    unique_filename = f"{timestamp}_{file.filename}"
     local_file_path = os.path.join(UPLOAD_DIRECTORY, unique_filename)
     url_path = f"/media/documents/{unique_filename}"
 

@@ -1,4 +1,4 @@
-﻿import os
+import os
 import json
 import math
 from typing import List, Dict, Any, Optional

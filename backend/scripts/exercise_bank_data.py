@@ -1,4 +1,4 @@
-﻿# Curated Interactive Numerical Analysis Problem Bank (50+ exercises total)
+# Curated Interactive Numerical Analysis Problem Bank (50+ exercises total)
 FULL_EXERCISE_BANK = [
   # --- NONLINEAR EQUATIONS ---
   {
