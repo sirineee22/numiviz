@@ -1,22 +1,22 @@
-fastapi==0.116.1
-uvicorn==0.35.0
-pydantic==2.11.7
-starlette==0.47.1
-python-multipart==0.0.20
-aiofiles==24.1.0
+fastapi>=0.110.0
+uvicorn>=0.30.0
+pydantic>=2.7.0
+starlette>=0.37.0
+python-multipart>=0.0.9
+aiofiles>=23.2.0
 
 # Numerical
-numpy==2.3.1
-scipy==1.16.0
-matplotlib==3.10.3
-asteval==1.0.6
+numpy>=1.26.0
+scipy>=1.13.0
+matplotlib>=3.8.0
+asteval>=0.9.31
 
-# Auth - bcrypt 4.x requires passlib 1.7.4 with truncation workaround
-passlib[bcrypt]==1.7.4
-python-jose[cryptography]==3.4.0
+# Auth
+passlib[bcrypt]>=1.7.4
+python-jose[cryptography]>=3.3.0
 bcrypt==4.0.1
 
 # Other
-requests==2.32.4
-pillow==11.3.0
+requests>=2.31.0
+pillow>=10.2.0
 slowapi>=0.1.9
