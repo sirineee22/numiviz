@@ -89,16 +89,16 @@ origins = (
         "http://127.0.0.1:5173",
         "http://localhost:8080",
         "http://localhost:8081",
-        "http://192.168.1.16:8080",
-        "http://192.168.1.16:3000",
+        "https://numiviz-fe4c.vercel.app",
     ]
 )
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
     expose_headers=["Content-Type", "Authorization"],
     max_age=600,  # cache preflight request for 10 minutes
