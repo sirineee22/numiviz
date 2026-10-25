@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.vite/
+.git/
+.gitignore
+.github/
+.agents/
+scratch/
+*.log
+backend/
+*.md
+.env.local

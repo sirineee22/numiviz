@@ -1,12 +1,12 @@
-fastapi>=0.110.0
+fastapi>=0.110.0,<0.116.0
 uvicorn>=0.30.0
-pydantic>=2.7.0
-starlette>=0.37.0
+pydantic>=2.7.0,<2.11.0
+starlette>=0.37.0,<0.46.0
 python-multipart>=0.0.9
 aiofiles>=23.2.0
 
 # Numerical
-numpy>=1.26.0
+numpy>=1.26.0,<3.0.0
 scipy>=1.13.0
 matplotlib>=3.8.0
 asteval>=0.9.31

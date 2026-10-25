@@ -1,0 +1,40 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: numiviz-backend-dev
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - /app/__pycache__
+    environment:
+      - SQLITE_DB_PATH=numiviz.db
+      - ALLOWED_ORIGINS=http://localhost:8080,http://localhost:5173,http://localhost:3000
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    networks:
+      - numiviz-dev-net
+
+  frontend:
+    image: node:20-alpine
+    container_name: numiviz-frontend-dev
+    working_dir: /app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    command: sh -c "npm install --legacy-peer-deps && npm run dev -- --host 0.0.0.0 --port 8080"
+    depends_on:
+      - backend
+    networks:
+      - numiviz-dev-net
+
+networks:
+  numiviz-dev-net:
+    driver: bridge
